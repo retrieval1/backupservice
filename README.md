@@ -1,7 +1,5 @@
 # Network Switch Configuration Backup Script
-**Author:** Cam Roberts (Anthony James Consulting)
-**Year:** 2026  
-**Company:** Elis  
+**Year:** 2026    
 
 ## Overview
 Automated backup solution for Aruba network switch configurations across 33+ company sites and over 400 switches. Supports HP ProCurve and Aruba CX switches (and the ability for more compatibility) with threads & workers. Configurable IP range through .txt file.
