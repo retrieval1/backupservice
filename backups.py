@@ -1,36 +1,34 @@
-# To Do List #
+# To Do List ###################################################################################################################################
 
-# Implement error logging, through either the logging module or netmiko logging
-# Device / IP pulling from Netedit (I have no idea how to do this yet)
+# Replace ips.txt with a .csv with more information. If successful, can determine credential set to use based on the information in the .csv, rather than trying all 4 sets for each switch
+# Print statements aren't needed for scheduled tasks, only for debugging. Consider replacing with logging module, or removing entirely.
+
+################################################################################################################################################
 
 import os
 import sys
+from pathlib import Path
 from datetime import datetime
 from netmiko import ConnectHandler
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-print("\n[+] Starting Switch Configuration Backup Script...")
+print("\n[ INFO ] Starting Switch Configuration Backup Script...")
+
 
 if not os.path.exists("ips.txt"):
     print("[!] ERROR: ips.txt file not found!")
     print("[!] Please create an ips.txt file with one IP address per line.")
     sys.exit(1)
 
-# Convert ips.txt to list, may need to add regex version later or pull from Netedit...
+# Convert ips.txt to useable list
 with open("ips.txt", "r") as ip_list:
     ips = [line.strip() for line in ip_list]
 
-folder = "SwitchBackups"
+'''Note: Output folder path for configs, change as needed '''
+folder = Path(r"")
+print(f"[ INFO ] Saving switch configs to {folder}.\n")
 
-if not os.path.exists(folder):
-    os.makedirs(folder)
-
-os.chdir(folder)
-
-print(f"[+] Folder {folder} already exists or has been created.")
-print(f"[+] Changed working directory to {folder}.\n")
-
-# Credential sets & other options for switches, see netmiko docs for details
+''' Note: the password fields are intentionally left blank, as I don't want to share any credentials. Fill in the passwords as needed. '''
 procurve = {
     "device_type": "hp_procurve",
     "username": "manager",
@@ -71,14 +69,17 @@ def backup_config(device):
         net_connect = ConnectHandler(**device)
         net_connect.disable_paging()
 
-        print(f"[+] Connected to {device['ip']}")
+        print(f"[ INFO ] Connected to {device['ip']}")
 
         hostname = net_connect.find_prompt().strip('#').strip('>')
         config = net_connect.send_command("show running-config")
-        
+
+        directory = Path(folder)
+        directory.mkdir(parents=True, exist_ok=True)
         filename = f"{hostname}_config.txt"
+        full_path = directory / filename
         
-        with open(filename, "w") as file:
+        with open(full_path, "w") as file:
             file.write(config)
         
         print(f"[+] Configuration for {device['ip']} ({hostname}) saved to {filename}")
@@ -106,8 +107,8 @@ def process_switch(ip):
 # How many workers to use in the thread pool
 MAX_WORKERS = 30
 
-print(f"[+] Starting backup process with {MAX_WORKERS} workers...")
-print(f"[+] Processing {len(ips)} switches...\n")
+print(f"[ INFO ] Starting backup process with {MAX_WORKERS} workers...")
+print(f"[ INFO ] Processing {len(ips)} switches...\n")
 
 successful = 0
 failed = 0
@@ -124,8 +125,8 @@ with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
 
 # Print summary :D
 print(f"\n{'='*60}")
-print(f"[+] Backup process complete!")
+print(f"[ INFO ] Backup process complete!")
 print(f"[+] Successful: {successful}")
 print(f"[!] Failed: {failed}")
-print(f"[+] Total: {len(ips)}")
+print(f"[ INFO ] Total: {len(ips)}")
 print(f"{'='*60}\n")
