@@ -9,7 +9,7 @@ Creates backups of switch configurations that cannot be managed by Aruba Central
 
 **Directory Creation & Naming**
 
-The folder variable is set as Path(r"{current_time}_switch_backups"), this will create it where you run the script, please add in the full path for where you want the backups to go and leave the existing portion at the end.
+The folder variable is set as `folder = Path(r"{current_time}_switch_backups")`, this will create it where you run the script, please add in the full path for where you want the backups to go and leave the existing portion at the end.
 
 **Directory Creation**
 
