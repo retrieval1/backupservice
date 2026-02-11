@@ -7,10 +7,6 @@ Creates backups of switch configurations that cannot be managed by Aruba Central
 
 ## **Overview**:
 
-**Directory Creation & Naming**
-
-The folder variable is set as `folder = Path(r"{current_time}_switch_backups")`, this will create it where you run the script, please add in the full path for where you want the backups to go and leave the existing portion at the end.
-
 **Directory Creation**
 
 `folder.mkdir(parents=True, exist_ok=True)` ensures the directory exists before writing files.
@@ -44,7 +40,7 @@ Install dependencies:
 ## **Configuration**:
 - `ips.txt`: Place in the same directory as the script. One IP address per line.
 - Credentials: Edit the credential dictionaries in `backups.py` to set `username` and `password` for your devices.
-- Output folder: Set the `folder` variable in `backups.py` (currently `folder = Path(r"{current_time}_switch_backups")`) to the directory where you want configs saved. Example: `folder = Path(r"\\server\directory\{current_time}_switch_backups")` or an absolute path.
+- Output folder: Set the `folder` variable in `backups.py` (currently `folder = Path(r"{current_time}_switch_backups")`) to the directory where you want configs saved. Example: `folder = Path(r"\\server\directory\{current_time}_switch_backups")` or an absolute path. Leave it as default if you don't mind it creating the backups in the same directory where the script is ran.
 - Adjust timeouts and other SSH options in the device dictionaries as needed.
 
 **Usage**:
