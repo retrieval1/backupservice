@@ -57,7 +57,7 @@ Install dependencies:
 - Connection errors are printed with a timestamp; verify reachability, credentials, and device SSH settings.
 
 **Security**:
-- Avoid hard-coding plaintext passwords in versioned files. Consider using environment variables, a secure vault, or an encrypted credentials file and edit the device parameters accordingly to use those instead of the plaintext strings.
+- *Avoid hard-coding plaintext passwords in versioned files. Consider using environment variables, a secure vault, or an encrypted credentials file and edit the device parameters accordingly to use those instead of the plaintext strings.*
 
 **Suggested Improvements**:
 - Replace `ips.txt` with a CSV to include device type/credential mapping and reduce credential guessing.
