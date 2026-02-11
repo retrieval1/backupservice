@@ -2,8 +2,10 @@
 
 Automated backup solution for Aruba network switch configurations across 33+ company sites and over 400 switches.
 
+# **Purpose**: 
+Creates backups of switch configurations that cannot be managed by Aruba Central or otherwise. This script ensures that in event of a switch failure or replacement, a new one can take it's place with the same configuration with little downtime.
+
 ## **Overview**:
-# **Purpose**: Creates backups of switch configurations that cannot be managed by Aruba Central or otherwise. This script ensures that in event of a switch failure or replacement, a new one can take it's place with the same configuration with little downtime.
 
 **Directory Creation & Naming**
 
