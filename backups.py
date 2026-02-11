@@ -14,12 +14,14 @@ from datetime import datetime
 from netmiko import ConnectHandler
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-logging.basicConfig(filename=f"{datetime.now().strftime('%Y-%m-%d')}.log", level=logging.INFO, format=f"[%(asctime)s] - [%(levelname)s] - %(message)s")
+current_time = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 
-# Note: Output folder path for configs, change as needed
-folder = Path(r"")
+logging.basicConfig(filename=f"{current_time}.log", level=logging.INFO, format=f"[%(asctime)s] - [%(levelname)s] - %(message)s")
 
-# Note: the password fields are intentionally left blank, as I don't want to share any credentials. Fill in the passwords as needed.
+# Note: Output folder path for configs, enter path before the {current_time} variable, this will create a new folder for each run of the script with the current date and time. 
+folder = Path(r"/{current_time}_switch_backups")
+
+# Note: the password fields are intentionally left blank, fill in the passwords between "" as needed.
 procurve = {
     "device_type": "hp_procurve",
     "username": "manager",
@@ -79,10 +81,9 @@ def backup_config(device):
         hostname = net_connect.find_prompt().strip('#').strip('>')
         config = net_connect.send_command("show running-config")
 
-        directory = Path(folder)
-        directory.mkdir(parents=True, exist_ok=True)
-        filename = f"{hostname}_config.txt"
-        full_path = directory / filename
+        folder.mkdir(parents=True, exist_ok=True)
+        filename = f"{device['ip']}_{hostname}_config.txt"
+        full_path = folder / filename
         
         with open(full_path, "w") as file:
             file.write(config)
