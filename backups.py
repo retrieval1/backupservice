@@ -19,7 +19,7 @@ current_time = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 logging.basicConfig(filename=f"{current_time}.log", level=logging.INFO, format=f"[%(asctime)s] - [%(levelname)s] - %(message)s")
 
 # Note: Output folder path for configs, enter path before the {current_time} variable, this will create a new folder for each run of the script with the current date and time. 
-folder = Path(r"/{current_time}_switch_backups")
+folder = Path(rf"{current_time}_switch_backups")
 
 # Note: the password fields are intentionally left blank, fill in the passwords between "" as needed.
 procurve = {
