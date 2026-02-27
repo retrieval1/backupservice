@@ -1,11 +1,3 @@
-# To Do List ####################################################################################################
-
-''' Replace ips.txt with a .csv with more information. i.e. IP, device type, site, etc. '''
-
-''' When the above is done, change function to use the specific credential set based on the switch information in the .csv, rather than trying all 4 sets for each switch '''
-
-#################################################################################################################
-
 import os
 import sys
 import csv
@@ -57,11 +49,11 @@ def load_devices_from_csv(filepath="ips.csv"):
     """Load device information from a CSV file.
     
     Reads the CSV file containing device IP addresses, OS types, and site names.
-    Returns a list of dictionaries with keys: ip, os_type, site.
+    Returns a list of dictionaries with keys: ip, os, site.
     """
     if not os.path.exists(filepath):
         logging.error(f"{filepath} file not found!")
-        logging.error("Please create an ips.csv file with columns: ip, os_type, site")
+        logging.error("Please create an ips.csv file with columns: ip, os, site")
         sys.exit(1)
     
     devices = []
@@ -71,7 +63,7 @@ def load_devices_from_csv(filepath="ips.csv"):
         for row in reader:
             devices.append({
                 "ip": row["ip"].strip(),
-                "os_type": row["os_type"].strip().lower(),
+                "os_type": row["os"].strip().lower(),
                 "site": row["site"].strip()
             })
     
@@ -81,7 +73,7 @@ def get_credentials_for_os(os_type):
     """Return the credential dictionary for a given OS type.
     
     Args:
-        os_type: The OS type string (e.g., 'aruba_aoscx', 'aos-switch')
+        os: The OS type string (e.g., 'aruba_aoscx', 'aos-switch')
     
     Returns:
         A dictionary containing device credentials, or None if OS type is unknown.
