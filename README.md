@@ -49,7 +49,7 @@ Install dependencies:
 - Windows: use Task Scheduler
 
 **Troubleshooting**:
-- If `ips.txt` is missing, the script exits with an error. You can see this, along with other errors, in the log file.
+- If `ips.csv` is missing, the script exits with an error. You can see this, along with other errors, in the log file.
 - Connection errors are printed with a timestamp; verify reachability, credentials, and device SSH settings.
 
 **Security**:
