@@ -56,7 +56,6 @@ Install dependencies:
 - *Avoid hard-coding plaintext passwords in versioned files. Consider using environment variables, a secure vault, or an encrypted credentials file and edit the device parameters accordingly to use those instead of the plaintext strings.*
 
 **Suggested Improvements**:
-- Replace `ips.txt` with a CSV to include device type/credential mapping and reduce credential guessing.
 - Add a `pyproject.toml` for reproducible installs.
 - Add optional notification on failure (email).
 
