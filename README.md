@@ -28,7 +28,7 @@ Tries all credential sets for each switch until one works. Currently...
 Logs a summary of successful and failed backups in the log file
 
 ## **Requirements**:
-- Python 3.8+ (recommended)
+- Python 3.8 -> 3.13 
 - `netmiko` (for SSH connections)
 - Read/write permissions
 
